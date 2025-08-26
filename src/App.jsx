@@ -7,33 +7,34 @@ const App = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
   const generateBotResponse = async (history) => {
-    // Format chat history for API request
-    history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": import.meta.env.VITE_GEMINI_API_KEY,
-      },
-      body: JSON.stringify({ contents: history }),
-    };
+    // Format history for Gemini API
+    const contents = history.map(({ role, text }) => ({
+      role,
+      parts: [{ text }],
+    }));
 
     try {
-      // Make the API call to get the bot's response
-      const response = await fetch(
-        import.meta.env.VITE_API_URL,
-        requestOptions
-      );
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.error.message || "Something went wrong");
+      const response = await fetch("/api/gemini", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents }),
+      });
 
-      console.log(data);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error?.message || "Something went wrong");
+      }
+
+      // Extract text from response
+      const botText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      return botText;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return "I can't process your request right now.";
     }
   };
+
   return (
     <div className="container">
       <div className="chatbot-popup">
