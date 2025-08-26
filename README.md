@@ -1,6 +1,6 @@
 # React AI Chatbot 
 
-This is a project inspired by CodingNepal's tutorial *"Build AI Chatbot in React JS & CSS"* de CodingNepal :contentReference[oaicite:1]{index=1}.  
+This is a project inspired by CodingNepal's tutorial *"Build AI Chatbot in React JS & CSS"* de CodingNepal [:contentReference\[oaicite:1\]{index=1}](https://www.youtube.com/watch?v=5fiXEGdEK10).  
 It allows you to build an interactive chatbot using **React** and styled in **CSS**, with AI-generated response capabilities.
 
 ---
@@ -24,7 +24,7 @@ It allows you to build an interactive chatbot using **React** and styled in **CS
 
 ---
 
-##  How run it
+##  How to run it
 
 ```bash
 git clone https://github.com/m0ns3/react-ai-chatbot.git
