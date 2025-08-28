@@ -31,3 +31,18 @@ git clone https://github.com/m0ns3/react-ai-chatbot.git
 cd react-ai-chatbot
 npm install
 npm run dev
+```
+
+---
+
+## Planned tasks
+
+- Migrate the project to **TypeScript**
+- Add unit tests
+- Improve error handling
+- Enhance UI/UX
+- Add more configuration options
+
+---
+
+Link: https://react-ai-chatbot-lac.vercel.app/
