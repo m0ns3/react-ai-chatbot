@@ -7,6 +7,14 @@ const App = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
   const generateBotResponse = async (history) => {
+    // Function to update chat history
+    const updateHistory = (text) => {
+      setChatHistory((prev) => [
+        ...prev.filter((msg) => msg.text !== "Thinking..."),
+        { role: "model", text },
+      ]);
+    };
+
     // Format history for Gemini API
     const contents = history.map(({ role, text }) => ({
       role,
@@ -27,8 +35,15 @@ const App = () => {
       }
 
       // Extract text from response
-      const botText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      return botText;
+      const botText =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text
+          .replace(/\*\*(.*?)\*\*/g, "$1")
+          .trim() || "";
+
+      // Clean and update chat history with bot response
+      updateHistory(botText);
+
+      // return botText;
     } catch (error) {
       console.error(error);
       return "I can't process your request right now.";
