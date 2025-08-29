@@ -11,10 +11,10 @@ const App = () => {
 
   const generateBotResponse = async (history) => {
     // Function to update chat history
-    const updateHistory = (text) => {
+    const updateHistory = (text, isError = false) => {
       setChatHistory((prev) => [
         ...prev.filter((msg) => msg.text !== "Thinking..."),
-        { role: "model", text },
+        { role: "model", text, isError },
       ]);
     };
 
@@ -45,10 +45,8 @@ const App = () => {
 
       // Clean and update chat history with bot response
       updateHistory(botText);
-
-      // return botText;
     } catch (error) {
-      console.error(error);
+      updateHistory(error.message, true);
       return "I can't process your request right now.";
     }
   };
